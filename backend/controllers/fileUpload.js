@@ -76,7 +76,7 @@ exports.videoUpload=async(req,res)=>{
         })
         res.json({
             success:true,
-            imageUrl:response.secure_url,
+            videoUrl:response.secure_url,
             message:'Video Uploaded Successfully'
         })
     }catch(error){
