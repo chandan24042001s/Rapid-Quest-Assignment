@@ -46,28 +46,28 @@ exports.videoUpload=async(req,res)=>{
         console.log(response);
 
         // Download the video from Cloudinary to the server
-        const videoPath = './videos/' + Date.now() + '.mp4';
-      const videoStream = fs.createWriteStream(videoPath);
-      const result = await cloudinary.v2.download_stream(response.public_id).pipe(videoStream);
+    //     const videoPath = './videos/' + Date.now() + '.mp4';
+    //   const videoStream = fs.createWriteStream(videoPath);
+    //   const result = await cloudinary.v2.download_stream(response.public_id).pipe(videoStream);
 
-      // Add subtitles to the video
-      const subtitlePath = './path/to/subtitles.srt';
-      const outputPath = __dirname+"/files/" + Date.now() + '_with_subtitles.mp4';
-      ffmpeg(videoPath)
-          .input(subtitlePath)
-          .outputOptions([
-              '-c copy',
-              '-map 0',
-              '-map 1',
-              '-metadata:s:s:0 language=eng',
-              '-disposition:s:s:0 default'
-          ])
-          .save(outputPath)
-          .on('end', () => {
-              console.log('Subtitles added successfully');
-              // Now you can upload the video with subtitles to Cloudinary again
-              // Or send it to the client
-          });
+    //   // Add subtitles to the video
+    //   const subtitlePath = './path/to/subtitles.srt';
+    //   const outputPath = __dirname+"/files/" + Date.now() + '_with_subtitles.mp4';
+    //   ffmpeg(videoPath)
+    //       .input(subtitlePath)
+    //       .outputOptions([
+    //           '-c copy',
+    //           '-map 0',
+    //           '-map 1',
+    //           '-metadata:s:s:0 language=eng',
+    //           '-disposition:s:s:0 default'
+    //       ])
+    //       .save(outputPath)
+    //       .on('end', () => {
+    //           console.log('Subtitles added successfully');
+    //           // Now you can upload the video with subtitles to Cloudinary again
+    //           // Or send it to the client
+    //       });
 
         //db mey Entry save krni hai
         const fileData=await File.create({
