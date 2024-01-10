@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import VideoPlayer from './components/Video Player/VideoPlayer';
 import SubtitleForm from './components/Subtitle/SubtitleForm';
 import './App.css'
+import VideoUpload from './components/Video Player/VideoUpload';
 
 const App = () => {
   const [videoUrl, setVideoUrl] = useState('https://res.cloudinary.com/dxotyahfw/video/upload/v1704902597/RapidQuest/ycxdzj4ytgkdvwfcwufh.mp4');
@@ -16,10 +17,11 @@ const App = () => {
     <div>
       <h1 className='title'>Video Subtitles App</h1>
       <div className='video-container'>
-      <VideoPlayer videoUrl={videoUrl} subtitles={subtitles} />
+      {/* <VideoPlayer videoUrl={videoUrl} subtitles={subtitles} /> */}
       </div>
       <div className='Submit-from'>
-      <SubtitleForm onSubmit={handleSubtitleSubmit} />
+      {/* <SubtitleForm onSubmit={handleSubtitleSubmit} /> */}
+      <VideoUpload/>
       </div>
       <input className='choose-file' type="file" onChange={(e) => setVideoUrl(URL.createObjectURL(e.target.files[0]))} />
     </div>

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import VideoPlayer from './VideoPlayer';
 
 const VideoUpload = () => {
    const [selectedFile, setSelectedFile] = useState();
    const [name, setName] = useState("");
    const [tags, setTags] = useState("");
    const [email, setEmail] = useState("");
-
+   const [videoUrl,setVideoUrl]=useState("")
    const submitHandler = async (e) => {
        e.preventDefault();
 
@@ -22,7 +23,9 @@ const VideoUpload = () => {
                   'Content-Type': 'multipart/form-data'
                }
            });
-           console.log(response.data);
+           setVideoUrl(response.data.videoUrl);
+           console.log(videoUrl)
+           console.log(response.data.videoUrl);
        } catch (error) {
            console.error(error);
        }
@@ -41,6 +44,8 @@ const VideoUpload = () => {
                <input type="file" onChange={fileChangeHandler} required />
                <button type="submit">Upload</button>
            </form>
+           {videoUrl && <VideoPlayer videoUrl={videoUrl} subtitles="" />}
+          
        </div>
    );
 };
