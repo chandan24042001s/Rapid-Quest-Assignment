@@ -1,0 +1,40 @@
+form{
+    display: flex;
+    justify-content: space-between;
+    width: 87%;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+label{
+    display: flex;
+    font-size: 1.4rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+input{
+    height: 2.5rem;
+    width: 30rem;
+    border-radius: 0.5rem;
+    /* border: 2px solid rgb(24, 23, 23); */
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+
+}
+textarea{
+    height: 3rem;
+    width: 30rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgb(24, 23, 23);
+    margin-left: 2.3rem;
+}
+button{
+    height: 3rem;
+    width: 10rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgb(24, 23, 23);
+}
+.checkbox input {
+    margin-bottom: 1rem;
+}
