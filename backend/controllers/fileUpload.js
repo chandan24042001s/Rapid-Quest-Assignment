@@ -3,40 +3,11 @@ const cloudinary=require("cloudinary").v2;
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 cloudinary.config({
-    cloud_name: 'your_cloud_name',
-    api_key: 'your_api_key',
-    api_secret: 'your_api_secret'
+    cloud_name:process.env.CLOUD_NAME,
+    api_key:process.env.API_KEY,
+    api_secret:process.env.API_SECRET,
    });
 
-// localFileUpload->handle Function
-exports.localFileUpload=async(req,res)=>{
-    try{
-        
-        //fetch file from file
-        const file=req.files.file;
-        console.log("File has been arrived -> ",file);
-
-        //create path where file need to be stored on server
-        let path=__dirname+"/files/"+Date.now() + `.${file.name.split('.')[1]}`;
-        console.log("PATH-> ",path)
-
-        //add path to the move function
-        file.mv(path,(err)=>{
-            console.log(err);;
-        });
-
-        //create a sucessful response
-        res.json({
-            success:true,
-            message:'Local File Uploaded Successfully'
-        });
-
-    }catch(error){
-        console.log("Not able to upload the file on the server");
-        console.log(error);
-
-    }
-}
 
 function isFileTypeSupported(type,supportedTypes){
     return supportedTypes.includes(type);
@@ -120,6 +91,36 @@ async function uploadFileToCloudinary(file,folder){
     const options={folder};
     console.log("temp file path",file.tempFilePath);
     return await cloudinary.uploader.upload(file.tempFilePath,options);
+}
+
+// localFileUpload->handle Function
+exports.localFileUpload=async(req,res)=>{
+    try{
+        
+        //fetch file from file
+        const file=req.files.file;
+        console.log("File has been arrived -> ",file);
+
+        //create path where file need to be stored on server
+        let path=__dirname+"/files/"+Date.now() + `.${file.name.split('.')[1]}`;
+        console.log("PATH-> ",path)
+
+        //add path to the move function
+        file.mv(path,(err)=>{
+            console.log(err);;
+        });
+
+        //create a sucessful response
+        res.json({
+            success:true,
+            message:'Local File Uploaded Successfully'
+        });
+
+    }catch(error){
+        console.log("Not able to upload the file on the server");
+        console.log(error);
+
+    }
 }
 
 
