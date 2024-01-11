@@ -55,29 +55,20 @@ const SubtitleForm = ({ onSubtitleSubmit, onConvertToSrt }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div className="checkbox">
-          <input type="text" placeholder="Enter your name" id="" />
-          <input type="text" placeholder="Enter your Email" />
-          <input type="text" placeholder="Relation Status" />
-        </div>
-        <div>
-          <label>
-            Timestamp:
-            <input
+      <form className="form" onSubmit={handleSubmit}>
+            <p>Timestamp:</p>
+
+             <input
+              className="timer"
               type="text"
               value={timestamp}
               onChange={(e) => setTimestamp(e.target.value)}
-            />
-          </label>
-          <label>
-            Subtitle:
+            /> 
+            <p>Subtitle:</p>
             <textarea value={text} onChange={(e) => setText(e.target.value)} />
-          </label>
-          <button type="submit">Add Subtitle</button>
-        </div>
+          <button className="add-button"  onClick={handleConvertToSrt}>Convert to .srt</button>
+          <button className="add-button" id="download" type="submit">Download</button>
       </form>
-      <button onClick={handleConvertToSrt}>Convert to .srt</button>
     </div>
   );
 };

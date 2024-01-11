@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import VideoPlayer from './components/Video Player/VideoPlayer';
-import SubtitleForm from './components/Subtitle/SubtitleForm';
 import './App.css'
 import VideoUpload from './components/Video Player/VideoUpload';
+import Contact from './components/Contact/Contact';
+import SubtitleForm from './components/Subtitle/SubtitleForm';
 
 const App = () => {
   const [videoUrl, setVideoUrl] = useState('https://res.cloudinary.com/dxotyahfw/video/upload/v1704902597/RapidQuest/ycxdzj4ytgkdvwfcwufh.mp4');
@@ -14,16 +14,22 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1 className='title'>Video Subtitles App</h1>
-      <div className='video-container'>
+    <div className="header">
+     <div className="nav-bar">
+     <Contact/>
+     <h1 className='title'>Video Subtitles App</h1>
+     </div>
+     <div className="instruction"></div>
+     <div className="video-container">
+     <VideoUpload/>
+     <SubtitleForm onSubmit={handleSubtitleSubmit} />
+     </div>
       {/* <VideoPlayer videoUrl={videoUrl} subtitles={subtitles} /> */}
-      </div>
       <div className='Submit-from'>
-      {/* <SubtitleForm onSubmit={handleSubtitleSubmit} /> */}
-      <VideoUpload/>
+      
+      
       </div>
-     
+      {/* <input className='choose-file' type="file" onChange={(e) => setVideoUrl(URL.createObjectURL(e.target.files[0]))} /> */}
     </div>
   );
 };
