@@ -37,6 +37,7 @@ const VideoUpload = () => {
            });
        
            console.log(response1)
+           console.log(response)
            setVideoUrl(response.data.videoUrl);
            console.log(response.data.videoUrl);
          
