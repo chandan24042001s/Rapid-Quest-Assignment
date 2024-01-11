@@ -1,6 +1,9 @@
 const File=require("../models/File");
 const cloudinary=require("cloudinary").v2;
+
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath);
 const fs = require('fs');
 cloudinary.config({
     cloud_name:process.env.CLOUD_NAME,
@@ -45,40 +48,83 @@ exports.videoUpload=async(req,res)=>{
         const response=await uploadFileToCloudinary1(file,"RapidQuest");
         console.log(response);
 
-        // Download the video from Cloudinary to the server
-    //     const videoPath = './videos/' + Date.now() + '.mp4';
-    //   const videoStream = fs.createWriteStream(videoPath);
-    //   const result = await cloudinary.v2.download_stream(response.public_id).pipe(videoStream);
+       // Subtitles handling
+    let subtitlePath;
+    if (req.files.subtitleFile) {
+      const subtitleFile = req.files.subtitleFile;
+      console.log('Subtitle file:', subtitleFile);
 
-    //   // Add subtitles to the video
-    //   const subtitlePath = './path/to/subtitles.srt';
-    //   const outputPath = __dirname+"/files/" + Date.now() + '_with_subtitles.mp4';
-    //   ffmpeg(videoPath)
-    //       .input(subtitlePath)
-    //       .outputOptions([
-    //           '-c copy',
-    //           '-map 0',
-    //           '-map 1',
-    //           '-metadata:s:s:0 language=eng',
-    //           '-disposition:s:s:0 default'
-    //       ])
-    //       .save(outputPath)
-    //       .on('end', () => {
-    //           console.log('Subtitles added successfully');
-    //           // Now you can upload the video with subtitles to Cloudinary again
-    //           // Or send it to the client
-    //       });
+      // Save the subtitle file locally
+      subtitlePath = __dirname+"/files/"+`${Date.now()}_subtitles.srt`;
+      subtitleFile.mv(subtitlePath, (err) => {
+        if (err) {
+          console.error('Error saving subtitle file:', err);
+          return res.status(500).json({
+            success: false,
+            message: 'Subtitle file upload failed',
+          });
+        }
+        console.log('Subtitle file saved:', subtitlePath);
+      });
+    }
 
-        //db mey Entry save krni hai
-        const fileData=await File.create({
-            name,tags,email,
-            imageUrl:response.secure_url,
-        })
+     // Add subtitles to the video if available
+     if (subtitlePath) {
+        const outputPath = __dirname+"/files/"+`${Date.now()}_with_subtitles.mp4`;
+        
+        const filePath = `${__dirname}/files/${file.name}`;
+console.log(`Checking if file exists at path: ${filePath}`);
+if (!fs.existsSync(filePath)) {
+ console.error(`File ${filePath} does not exist.`);
+ return;
+}ffmpeg(filePath)
+          .input(subtitlePath)
+          .outputOptions([
+            '-c copy',
+            '-map 0',
+            '-map 1',
+            '-metadata:s:s:0 language=eng',
+            '-disposition:s:s:0 default',
+          ])
+          .save(outputPath)
+          .on('end', async () => {
+            console.log('Subtitles added successfully');
+  
+            // Upload the video with subtitles to Cloudinary
+            const subtitleResponse = await uploadFileToCloudinary(outputPath, 'RapidQuest');
+            console.log(subtitleResponse);
+  
+            // Save entry in the database
+            const fileData = await File.create({
+              name,
+              tags,
+              email,
+              videoUrl: subtitleResponse.secure_url,
+            });
+  
+            // Return success response
+            res.json({
+              success: true,
+              videoUrl: subtitleResponse.secure_url,
+              message: 'Video with subtitles uploaded successfully',
+            });
+          });
+      } else {
+        // No subtitles provided, proceed as before
+        const fileData = await File.create({
+          name,
+          tags,
+          email,
+          videoUrl: response.secure_url,
+        });
+  
+        // Return success response
         res.json({
-            success:true,
-            videoUrl:response.secure_url,
-            message:'Video Uploaded Successfully'
-        })
+          success: true,
+          videoUrl: response.secure_url,
+          message: 'Video uploaded successfully',
+        });
+      }
     }catch(error){
         console.log(error);
         res.status(400).json({
@@ -102,7 +148,7 @@ exports.localFileUpload=async(req,res)=>{
         console.log("File has been arrived -> ",file);
 
         //create path where file need to be stored on server
-        let path=__dirname+"/files/"+Date.now() + `.${file.name.split('.')[1]}`;
+        let path=__dirname+"/files/"+file.name;
         console.log("PATH-> ",path)
 
         //add path to the move function

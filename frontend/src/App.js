@@ -23,7 +23,7 @@ const App = () => {
       {/* <SubtitleForm onSubmit={handleSubtitleSubmit} /> */}
       <VideoUpload/>
       </div>
-      <input className='choose-file' type="file" onChange={(e) => setVideoUrl(URL.createObjectURL(e.target.files[0]))} />
+     
     </div>
   );
 };
