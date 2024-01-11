@@ -49,7 +49,7 @@ exports.videoUpload = async (req, res) => {
 
     // Subtitles handling - on DEVEOLPEMNT MODE(Testing -ve)
     let subtitlePath;
-    if (!req.files.subtitleFile) {
+    if (req.files.subtitleFile) {
       const subtitleFile = req.files.subtitleFile;
       console.log("Subtitle file:", subtitleFile);
 

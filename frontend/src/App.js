@@ -19,7 +19,12 @@ const App = () => {
      <Contact/>
      <h1 className='title'>Video Subtitles App</h1>
      </div>
-     <div className="instruction"></div>
+     <div className="instruction">
+      <h1>Instructions/Manual</h1>
+      <ol>
+        <li>  </li>
+      </ol>
+     </div>
      <div className="video-container">
      <VideoUpload/>
      <SubtitleForm onSubmit={handleSubtitleSubmit} />

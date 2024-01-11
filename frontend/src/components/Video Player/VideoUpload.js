@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import VideoPlayer from './VideoPlayer';
+import "./video.css"
 
 const VideoUpload = () => {
    const [selectedFile, setSelectedFile] = useState();
@@ -38,7 +39,7 @@ const VideoUpload = () => {
    return (
        <div>
            <form className='input-form' onSubmit={submitHandler}>
-           {videoUrl && <VideoPlayer videoUrl={videoUrl} subtitles="" />}
+         
                <input className='input' type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
                <input className='input' type="text" placeholder="Tags" value={tags} onChange={(e) => setTags(e.target.value)} required />
                <input className='input' type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -47,9 +48,9 @@ const VideoUpload = () => {
                <button className="button" type='submit'>Upload</button>
                </div>
            </form>
-              
-          
-          
+              <div className='player'>
+           {videoUrl && <VideoPlayer videoUrl={videoUrl} subtitles="" />}
+           </div>
        </div>
    );
 };
