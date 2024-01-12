@@ -1,4 +1,4 @@
-#Instructions to run 
+##Instructions to run 
 
 1 . Clone the Project and install dependencies
 
