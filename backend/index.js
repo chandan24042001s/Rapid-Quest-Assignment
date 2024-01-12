@@ -7,11 +7,12 @@ const PORT=process.env.PORT || 5000;
 
 
 //Cors management
-app.use(
-    cors({
-      origin: "*",
-    })
-  );
+pp.use(
+  cors({
+      origin:["https://localhost:5000","https://siya-ram-store.vercel.app"],
+      credentials:true,
+  })
+)
 
 // Middleware to parse JSON and handle form data
 app.use(bodyParser.json());
