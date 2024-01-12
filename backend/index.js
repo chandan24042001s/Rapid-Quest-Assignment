@@ -10,6 +10,7 @@ const PORT=process.env.PORT || 5000;
 app.use(
   cors({
       origin:["https://localhost:5000","https://siya-ram-store.vercel.app"],
+      methods: ["post","get"],
       credentials:true,
   })
 )
