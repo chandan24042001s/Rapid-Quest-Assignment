@@ -19,7 +19,7 @@ const VideoUpload = () => {
        formData.append('email', email);
 
        try {
-           const response = await axios.post('http://localhost:4000/api/v1/upload/videoUpload', formData, {
+           const response = await axios.post('https://ecommerce-chandan-778n.onrender.com/api/v1/upload/videoUpload', formData, {
                headers: {
                   'Content-Type': 'multipart/form-data'
                }
