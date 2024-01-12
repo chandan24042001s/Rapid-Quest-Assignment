@@ -12,7 +12,7 @@ const SubtitleForm = ({ onSubtitleSubmit, onConvertToSrt }) => {
     e.preventDefault();
     const newSubtitle = { timestamp, text };
     setSubtitles([...subtitles, newSubtitle]);
-    onSubtitleSubmit(newSubtitle);
+    // onSubtitleSubmit(newSubtitle);
     setTimestamp("");
     setText("");
   };
@@ -65,8 +65,8 @@ const SubtitleForm = ({ onSubtitleSubmit, onConvertToSrt }) => {
             /> 
             <p>Subtitle:</p>
             <textarea className="subtitle-input" value={text} onChange={(e) => setText(e.target.value)} />
-          <button className="add-button"  onClick={handleConvertToSrt}>Convert to .srt</button>
-          <button className="add-button" id="download" type="submit">Download</button>
+          <button className="add-button"  onClick={handleConvertToSrt}>Download</button>
+          <button className="add-button" id="download" type="submit">Append TimeStamp to .srt</button>
       </form>
     </div>
   );

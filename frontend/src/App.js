@@ -19,21 +19,13 @@ const App = () => {
      <Contact/>
      <h1 className='title'>Video Subtitles App</h1>
      </div>
-     {/* <div className="instruction">
-      <h1>Instructions/Manual</h1>
-      <ol>
-        <li>  </li>
-      </ol>
-     </div> */}
+     
      <div className="video-container">
+     {/* <div className="instruction"></div> */}
      <VideoUpload/>
      <SubtitleForm onSubmit={handleSubtitleSubmit} />
      </div>
       {/* <VideoPlayer videoUrl={videoUrl} subtitles={subtitles} /> */}
-      <div className='Submit-from'>
-      
-      
-      </div>
       {/* <input className='choose-file' type="file" onChange={(e) => setVideoUrl(URL.createObjectURL(e.target.files[0]))} /> */}
     </div>
   );
