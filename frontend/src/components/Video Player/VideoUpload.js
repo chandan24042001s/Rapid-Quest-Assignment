@@ -27,8 +27,14 @@ const VideoUpload = () => {
         "https://file-lb1m.onrender.com/api/v1/upload/videoUpload",
         formData,
         {
+          mode: "no-cors",
           headers: {
             "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods":
+              "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers":
+              "X-Requested-With, content-type, Authorization",
           },
         }
       );
@@ -47,7 +53,19 @@ const VideoUpload = () => {
 
   return (
     <div>
-      {shownotics && <p className="notic">Uploading Please Wait...</p>}
+      {shownotics && (
+        <p className="notic">
+          Uploading Please Wait <br />
+          Make Sure Your Cors ON{" "}
+          <a
+            className="warning"
+            href="https://chromewebstore.google.com/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf"
+            target="-blank"
+          >
+            Allow CORS
+          </a>
+        </p>
+      )}
       <form className="input-form" onSubmit={submitHandler}>
         {shownotics && (
           <>
