@@ -35,6 +35,12 @@ cloudinary.cloudinaryconnect();
 const upload=require("./routes/FileUpload");
 app.use('/api/v1/upload',upload);
 
+
+//default route
+app.get("/",(req,res)=>{
+  res.send(`<h1> This is Home page bhaiye </h1>`);
+})
+
 app.listen(PORT,()=>{
     console.log(`App is running at ${PORT}`)
 })
