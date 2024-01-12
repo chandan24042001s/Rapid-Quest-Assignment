@@ -1,9 +1,5 @@
 const File = require("../models/File");
 const cloudinary = require("cloudinary").v2;
-
-const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
-const ffmpeg = require("fluent-ffmpeg");
-ffmpeg.setFfmpegPath(ffmpegPath);
 const fs = require("fs");
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
