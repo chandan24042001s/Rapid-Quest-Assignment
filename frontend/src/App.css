@@ -10,6 +10,14 @@
     color: var(--blue);
     margin-left:18rem;
 }
+::placeholder {
+    color: #2c9caf;
+    opacity: 1; 
+  }
+  input:focus { 
+    outline: none !important;
+    border-color: #555;
+  }
 .choose-file{
     height: 3rem;
     width: 10rem;
@@ -17,6 +25,7 @@
     margin-left:2rem ;
 }
 .header{
+    align-items: center;
     margin-top:1rem;
     margin: 1rem;
 }
@@ -25,11 +34,10 @@
 }
 .video-container{
     display:flex;
-    justify-content: center;
-    margin-left: 10rem;
+    justify-content: space-between;
     margin-top: 2rem;
+    margin-left: 10rem;
 }
 .instruction{
-    position:absolute;
-    top: 12.2rem;
+    width: 10rem;   
 }

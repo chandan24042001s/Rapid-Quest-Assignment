@@ -9,14 +9,10 @@ const VideoPlayer = ({ videoUrl, subtitles }) => {
   return (
 
     <div>
-      <div className="video-card">
       <video className="Video" ref={videoRef} controls autoPlay >
         {videoUrl && <source src={videoUrl} type="video/mp4" />}
         {subtitles && <track default kind="subtitles" src={subtitles} />}
       </video>
-      </div>
-
-      
     </div>
   );
 };

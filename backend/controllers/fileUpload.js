@@ -76,51 +76,51 @@ exports.videoUpload = async (req, res) => {
       console.log(`Checking if file exists at path: ${filePath}`);
       // if (!fs.existsSync(filePath)) {
       //  console.error(`File ${filePath} does not exist.`);
-      //  return;
-      // }
-      ffmpeg(filePath)
-        .input(subtitlePath)
-        .outputOptions([
-          "-c copy",
-          "-map 0",
-          "-map 1",
-          "-metadata:s:s:0 language=eng",
-          "-disposition:s:s:0 default",
-        ])
-        .save(outputPath)
-        .on("error", (err) => {
-          console.error("Error during ffmpeg processing:");
-          res.json({
-            success: false,
-            message: "Video processing failed",
-          });
-        })
+      // //  return;
+      // // }
+      // ffmpeg(filePath)
+      //   .input(subtitlePath)
+      //   .outputOptions([
+      //     "-c copy",
+      //     "-map 0",
+      //     "-map 1",
+      //     "-metadata:s:s:0 language=eng",
+      //     "-disposition:s:s:0 default",
+      //   ])
+      //   .save(outputPath)
+      //   .on("error", (err) => {
+      //     console.error("Error during ffmpeg processing:");
+      //     res.json({
+      //       success: false,
+      //       message: "Video processing failed",
+      //     });
+      //   })
 
-        .on("end", async () => {
-          console.log("Subtitles added successfully");
+      //   .on("end", async () => {
+      //     console.log("Subtitles added successfully");
 
-          // Upload the video with subtitles to Cloudinary
-          const subtitleResponse = await uploadFileToCloudinary(
-            outputPath,
-            "RapidQuest"
-          );
-          console.log(subtitleResponse);
+      //     // Upload the video with subtitles to Cloudinary
+      //     const subtitleResponse = await uploadFileToCloudinary(
+      //       outputPath,
+      //       "RapidQuest"
+      //     );
+      //     console.log(subtitleResponse);
 
-          // Save entry in the database
-          const fileData = await File.create({
-            name,
-            tags,
-            email,
-            videoUrl: subtitleResponse.secure_url,
-          });
+      //     // Save entry in the database
+      //     const fileData = await File.create({
+      //       name,
+      //       tags,
+      //       email,
+      //       videoUrl: subtitleResponse.secure_url,
+      //     });
 
-          // Return success response
-          res.json({
-            success: true,
-            videoUrl: subtitleResponse.secure_url,
-            message: "Video with subtitles uploaded successfully",
-          });
-        });
+      //     // Return success response
+      //     res.json({
+      //       success: true,
+      //       videoUrl: subtitleResponse.secure_url,
+      //       message: "Video with subtitles uploaded successfully",
+      //     });
+        // });
     } else {
       // No subtitles provided, proceed as before
       const fileData = await File.create({
